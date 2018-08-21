@@ -22,9 +22,9 @@ export default class ProfileScreen extends Component {
     // 讀取Storage內的資料
     loadStorage = async () => {
 
-        this.setState({ myBookListName: [] })
-
         let bookGet = await StorageHelper.getMySetting('code')
+
+        // 法一: 只把書名放到Array內，再更新到state內
         let a = JSON.parse(bookGet)
         console.log("每次進來看我的array", this.state.myBookListName)
         let newArray = []
@@ -33,6 +33,10 @@ export default class ProfileScreen extends Component {
             console.log(33333, thing.volumeInfo.title)
         })
         this.setState({ myBookCount: a.length, myBookListName: newArray })
+
+        // // 法二: 整個object都更新到state內
+        // let a = JSON.parse(bookGet)
+        // this.setState({ myBookCount: a.length, myBookListName: a })
 
     };
 
@@ -43,11 +47,20 @@ export default class ProfileScreen extends Component {
                 <Text style={styles.welcome}>ProfileScreen!</Text>
                 <Text style={styles.instructions}>profile頁面</Text>
                 <Text style={styles.instructions}>我收藏了{this.state.myBookCount}本書</Text>
+
+                {/* loadStorage 法一 的渲染方法 */}
                 {
                     this.state.myBookListName.map((bookName, index) => {
                         return (<Text key={index}>書名為：{bookName}</Text>)
                     })
                 }
+
+                {/* loadStorage 法二 的渲染方法 */}
+                {/* {
+                    this.state.myBookListName.map((a, index) => {
+                        return (<Text key={index}>書名為：{a.volumeInfo.title}</Text>)
+                    })
+                } */}
 
             </View>
         )

@@ -21,12 +21,12 @@ export default class HomeScreen extends Component {
     }
 
     componentDidUpdate() {
-        let chooseCountNum = 0
+        // let chooseCountNum = 0
         let getALL = []
         this.state.ds.map(a => {
             if (a.addToMyLists === true) {
                 getALL.push(a)
-                return chooseCountNum += 1
+                // return chooseCountNum += 1
             }
         })
 
